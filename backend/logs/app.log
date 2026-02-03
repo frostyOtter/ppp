@@ -1,0 +1,23 @@
+2026-02-03 23:43:53.980 | INFO     | src.main:parse_pdf:51 - Received parse request: parser=pymupdf, filename=Quizlet Print.pdf
+2026-02-03 23:43:53.980 | INFO     | src.parsers:get_parser:51 - Retrieved parser: PyMuPDF
+2026-02-03 23:43:53.982 | INFO     | src.main:parse_pdf:81 - Saved uploaded file to /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpxq_x_ljm.pdf
+2026-02-03 23:43:53.982 | INFO     | src.main:parse_pdf:87 - Parsing with PyMuPDF, start_page=1, max_pages=1
+2026-02-03 23:43:57.337 | INFO     | src.parsers.pymupdf_parser:parse:45 - Opening PDF document: /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpxq_x_ljm.pdf
+2026-02-03 23:43:57.337 | INFO     | src.parsers.pymupdf_parser:parse:55 - File size: 66376 bytes
+2026-02-03 23:43:57.338 | INFO     | src.parsers.pymupdf_parser:parse:78 - Successfully opened document. Page count: 11
+2026-02-03 23:43:57.338 | INFO     | src.parsers.pymupdf_parser:parse:99 - Extracting text from pages 1 to 1
+2026-02-03 23:43:57.338 | INFO     | src.parsers.pymupdf_parser:parse:118 - Processing page 1
+2026-02-03 23:43:57.343 | SUCCESS  | src.parsers.pymupdf_parser:parse:171 - PyMuPDF extraction completed successfully
+2026-02-03 23:43:57.343 | INFO     | src.main:parse_pdf:124 - Deleted temp file /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpxq_x_ljm.pdf
+2026-02-03 23:44:25.644 | INFO     | src.main:parse_pdf:51 - Received parse request: parser=pymupdf, filename=Quizlet Print.pdf
+2026-02-03 23:44:25.644 | INFO     | src.parsers:get_parser:51 - Retrieved parser: PyMuPDF
+2026-02-03 23:44:25.645 | INFO     | src.main:parse_pdf:81 - Saved uploaded file to /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpwl_rpv1r.pdf
+2026-02-03 23:44:25.645 | INFO     | src.main:parse_pdf:87 - Parsing with PyMuPDF, start_page=1, max_pages=1
+2026-02-03 23:44:25.698 | INFO     | src.parsers.pymupdf_parser:parse:45 - Opening PDF document: /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpwl_rpv1r.pdf
+2026-02-03 23:44:25.698 | INFO     | src.parsers.pymupdf_parser:parse:55 - File size: 66376 bytes
+2026-02-03 23:44:25.699 | INFO     | src.parsers.pymupdf_parser:parse:78 - Successfully opened document. Page count: 11
+2026-02-03 23:44:25.699 | INFO     | src.parsers.pymupdf_parser:parse:99 - Extracting text from pages 1 to 1
+2026-02-03 23:44:25.699 | INFO     | src.parsers.pymupdf_parser:parse:118 - Processing page 1
+2026-02-03 23:44:25.703 | SUCCESS  | src.parsers.pymupdf_parser:parse:171 - PyMuPDF extraction completed successfully
+2026-02-03 23:44:25.703 | INFO     | src.main:parse_pdf:124 - Deleted temp file /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpwl_rpv1r.pdf
+2026-02-03 23:44:40.129 | INFO     | src.main:parse_pdf:51 - Received parse request: parser=invalid, filename=Quizlet Print.pdf
