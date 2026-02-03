@@ -1,113 +1,84 @@
-# PDF Parsers Playground (PPP)
+# PDF Parser Project (PPP)
 
-A Streamlit application that allows you to experiment with various PDF parsing libraries. This playground provides a user-friendly interface to test and compare different PDF parsing methods, with real-time preview and detailed analysis capabilities.
+A modern web application for parsing PDF documents using multiple strategies. This project provides a user-friendly interface to upload PDFs, select different parsing algorithms, and view the extracted text results.
 
-## Features
+## 🏗 Architecture
 
-- **Interactive PDF Processing**:
-  - Upload your own PDF documents
-  - Select from pre-populated example PDFs
-  - Real-time PDF preview
-  - Configurable page range processing
-  - Debug visualization support
+The project follows a Domain-Centric / Hexagonal Architecture to ensure separation of concerns and maintainability.
 
-- **Multiple Parser Support**:
-  - PyMuPDF: Fast and reliable text extraction with formatting preservation
-  - PyPDF2: Pure-Python PDF processing with basic text extraction
-  - PDFMiner: Detailed text extraction with layout analysis
-  - Docling: Advanced document understanding with table extraction
+### Frontend
+- **Framework:** React 18 with TypeScript
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS
+- **State Management:** React Context API
+- **HTTP Client:** Native `fetch` with custom wrapper
 
-- **Comprehensive Analysis**:
-  - Markdown-formatted output
-  - Raw text extraction
-  - Debug visualization
-  - PDF structure analysis
-  - File diagnostics
-  - Metadata extraction
+### Backend
+- **Framework:** FastAPI (Python 3.12+)
+- **Dependency Management:** `uv`
+- **Architecture Layers:**
+  - **Domain:** Core business logic and interfaces (Ports).
+  - **Application:** Use cases and orchestration.
+  - **Infrastructure:** External adapters (Parsers, File System, API).
 
-## System Architecture
+## 🚀 Features
 
-The application follows a modular architecture with clear separation of concerns:
+- **Multi-Strategy Parsing:** Support for various PDF parsing libraries:
+  - `PyPDF2`: Basic text extraction.
+  - `PyMuPDF`: High-fidelity extraction.
+  - `PDFMiner`: Layout analysis.
+  - `Docling`: Advanced document processing.
+- **Real-time Feedback:** Progress indicators and error handling.
+- **Clean UI:** Responsive design with a sidebar for settings and a main content area for results.
 
-1. **User Interface Layer**:
-   - Streamlit-based web interface
-   - File upload and example selection
-   - Parser configuration
-   - Results visualization
+## 🛠 Getting Started
 
-2. **Processing Layer**:
-   - PDF validation and preprocessing
-   - Parser factory pattern
-   - Multiple parser implementations
-   - Error handling and logging
+### Prerequisites
 
-3. **Analysis Layer**:
-   - Text extraction
-   - Table extraction
-   - Image detection
-   - Structure analysis
-   - File diagnostics
+- **Python:** 3.12 or higher
+- **Node.js:** 20 or higher
+- **uv:** An extremely fast Python package installer and resolver.
 
-## Installation
+### Backend Setup
 
-1. Clone this repository:
-```bash
-git clone https://github.com/yourusername/pdf-parsers-playground.git
-cd pdf-parsers-playground
-```
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
 
-2. Create and activate a virtual environment (recommended):
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
+2. Install dependencies:
+   ```bash
+   uv sync
+   ```
 
-3. Install the required dependencies:
-```bash
-pip install -r requirements.txt
-```
+3. Run the development server:
+   ```bash
+   uv run fastapi dev src/main.py
+   ```
+   The API will be available at `http://localhost:8000`.
 
-4. Run the Streamlit app:
-```bash
-streamlit run src/main.py
-```
+### Frontend Setup
 
-## Project Structure
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
 
-```
-pdf-parsers-playground/
-├── src/
-│   ├── main.py              # Main Streamlit application
-│   └── parsers/             # Parser implementations
-│       ├── __init__.py      # Parser registry and utilities
-│       ├── base_parser.py   # Abstract base class for parsers
-│       ├── pymupdf_parser.py
-│       ├── pypdf2_parser.py
-│       ├── pdfminer_parser.py
-│       ├── docling_parser.py
-│       └── utils.py         # PDF analysis utilities
-├── data/                    # Example PDFs directory
-│   ├── academic_paper_figure.pdf
-│   ├── attention_paper.pdf
-│   └── ...
-├── requirements.txt         # Project dependencies
-└── README.md               # Project documentation
-```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### Adding Example PDFs
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
+   The application will be available at `http://localhost:5173`.
 
-1. Place your example PDFs in the `data` directory
-2. The application will automatically detect and list them in the examples section
+## 📂 Project Structure
 
-## Limitations
+For a detailed view of the directory structure, please refer to `project-structure.html`.
 
-- Maximum of 5 consecutive pages can be processed at once
-- Some parsers may have specific limitations:
-  - PyPDF2: Basic text extraction, may struggle with complex layouts
-  - PDFMiner: Slower processing but better layout preservation
-  - PyMuPDF: Requires additional system dependencies
-  - Docling: Demo implementation only
+## 🔄 Data Flow
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+For a visualization of how data moves through the application, please refer to `data-flow-diagram.html`.

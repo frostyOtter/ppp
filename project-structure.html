@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPP Project Structure</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+        h1 {
+            color: #569cd6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #252526;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            overflow-x: auto;
+        }
+        .tree {
+            white-space: pre;
+        }
+        .comment {
+            color: #6a9955;
+        }
+        .directory {
+            color: #dcb67f;
+        }
+        .file {
+            color: #9cdcfe;
+        }
+    </style>
+</head>
+<body>
+    <h1>Project Directory Structure</h1>
+    <div class="container">
+        <div class="tree">
+ppp/
+├── <span class="directory">backend/</span>                  <span class="comment"># Python FastAPI Backend</span>
+│   ├── <span class="directory">logs/</span>                 <span class="comment"># Application logs</span>
+│   │   └── <span class="file">app.log</span>
+│   ├── <span class="directory">src/</span>                  <span class="comment"># Source code</span>
+│   │   ├── <span class="directory">parsers/</span>          <span class="comment"># PDF Parsing Strategies</span>
+│   │   │   ├── <span class="file">__init__.py</span>
+│   │   │   ├── <span class="file">base_parser.py</span>    <span class="comment"># Abstract Base Class</span>
+│   │   │   ├── <span class="file">docling_parser.py</span> <span class="comment"># Docling implementation</span>
+│   │   │   ├── <span class="file">pdfminer_parser.py</span><span class="comment"># PDFMiner implementation</span>
+│   │   │   ├── <span class="file">pymupdf_parser.py</span> <span class="comment"># PyMuPDF implementation</span>
+│   │   │   ├── <span class="file">pypdf2_parser.py</span>  <span class="comment"># PyPDF2 implementation</span>
+│   │   │   └── <span class="file">utils.py</span>        <span class="comment"># Helper functions</span>
+│   │   └── <span class="file">main.py</span>           <span class="comment"># Application entry point</span>
+│   ├── <span class="file">.python-version</span>       <span class="comment"># Python version pin</span>
+│   ├── <span class="file">pyproject.toml</span>        <span class="comment"># Project configuration</span>
+│   ├── <span class="file">requirements.txt</span>      <span class="comment"># Legacy requirements (reference)</span>
+│   └── <span class="file">uv.lock</span>               <span class="comment"># Dependency lock file</span>
+│
+├── <span class="directory">data/</span>                     <span class="comment"># Data storage</span>
+│   └── <span class="file">Quizlet Print.pdf</span>     <span class="comment"># Sample data</span>
+│
+├── <span class="directory">frontend/</span>                 <span class="comment"># React Frontend</span>
+│   ├── <span class="directory">src/</span>
+│   │   ├── <span class="directory">api/</span>              <span class="comment"># API Client</span>
+│   │   │   └── <span class="file">client.ts</span>
+│   │   ├── <span class="directory">components/</span>       <span class="comment"># UI Components</span>
+│   │   │   ├── <span class="file">ErrorMessage.tsx</span>
+│   │   │   ├── <span class="file">FileUpload.tsx</span>
+│   │   │   ├── <span class="file">LoadingSpinner.tsx</span>
+│   │   │   ├── <span class="file">ParserSettings.tsx</span>
+│   │   │   └── <span class="file">ResultViewer.tsx</span>
+│   │   ├── <span class="directory">context/</span>          <span class="comment"># React Context</span>
+│   │   │   └── <span class="file">AppContext.tsx</span>
+│   │   ├── <span class="directory">types/</span>            <span class="comment"># TypeScript Interfaces</span>
+│   │   │   └── <span class="file">index.ts</span>
+│   │   ├── <span class="file">App.tsx</span>           <span class="comment"># Main Application Component</span>
+│   │   └── <span class="file">main.tsx</span>          <span class="comment"># Entry point</span>
+│   ├── <span class="file">package.json</span>          <span class="comment"># Node dependencies</span>
+│   ├── <span class="file">tailwind.config.js</span>    <span class="comment"># Tailwind configuration</span>
+│   ├── <span class="file">tsconfig.json</span>         <span class="comment"># TypeScript configuration</span>
+│   └── <span class="file">vite.config.ts</span>        <span class="comment"># Vite configuration</span>
+│
+├── <span class="directory">revise_plans/</span>             <span class="comment"># Architectural planning docs</span>
+│   ├── <span class="file">backend_architecture.md</span>
+│   ├── <span class="file">change_plan.md</span>
+│   └── <span class="file">directory_structure.md</span>
+│
+└── <span class="directory">tasks/</span>                    <span class="comment"># Task tracking</span>
+    ├── <span class="file">be_task_*.md</span>          <span class="comment"># Backend tasks</span>
+    └── <span class="file">fe_task_*.md</span>          <span class="comment"># Frontend tasks</span>
+        </div>
+    </div>
+</body>
+</html>
