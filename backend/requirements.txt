@@ -1,4 +1,7 @@
-streamlit
+fastapi
+uvicorn
+python-multipart
+loguru
 pymupdf
 docling-parse
 # pdfplumber
@@ -6,4 +9,3 @@ docling-parse
 "unstructured[pdf]"
 pypdf
 sycamore-ai
-loguru
