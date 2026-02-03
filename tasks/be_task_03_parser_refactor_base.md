@@ -20,6 +20,6 @@ You are part of the **Backend Team**. The existing parsers rely on `streamlit` (
     *   Ensure it adheres to the `BaseParser` interface.
 
 ## Definition of Done
-*   [ ] `base_parser.py` has no Streamlit dependencies.
-*   [ ] `docling_parser.py` has no Streamlit dependencies.
-*   [ ] `docling_parser.py` returns the extracted text/markdown as a string.
+*   [x] `base_parser.py` has no Streamlit dependencies.
+*   [x] `docling_parser.py` has no Streamlit dependencies.
+*   [x] `docling_parser.py` returns the extracted text/markdown as a string.
