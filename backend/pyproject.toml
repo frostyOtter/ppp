@@ -11,6 +11,8 @@ dependencies = [
     "fastapi>=0.115.0",
     "uvicorn>=0.31.0",
     "python-multipart>=0.0.12",
+    "docling>=1.0.0",
+    "pdfminer.six>=20221105",
 ]
 
 # --- START Ruff Configuration ---
