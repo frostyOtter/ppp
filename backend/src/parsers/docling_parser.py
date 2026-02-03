@@ -3,7 +3,6 @@ import tempfile
 import traceback
 from pathlib import Path
 
-import pandas as pd
 from loguru import logger
 
 from .base_parser import PDFParser
