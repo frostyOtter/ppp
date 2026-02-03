@@ -1,6 +1,9 @@
-import { FileUpload, ParserSettings } from './components';
+import { FileUpload, ParserSettings, ResultViewer, LoadingSpinner, ErrorMessage } from './components';
+import { useApp } from './context/AppContext';
 
 function App() {
+  const { isProcessing, result, error, setError } = useApp();
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
       {/* Sidebar */}
@@ -26,8 +29,30 @@ function App() {
             </p>
           </div>
           
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <FileUpload />
+          <div className="space-y-6">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+              <FileUpload />
+            </div>
+
+            {error && (
+              <ErrorMessage 
+                message={error} 
+                onDismiss={() => setError(null)} 
+              />
+            )}
+
+            {isProcessing ? (
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 min-h-[200px] flex items-center justify-center">
+                <LoadingSpinner />
+              </div>
+            ) : (
+              result && (
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">Parsed Result</h3>
+                  <ResultViewer content={result.content} />
+                </div>
+              )
+            )}
           </div>
         </div>
       </main>
