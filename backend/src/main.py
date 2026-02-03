@@ -296,8 +296,8 @@ with right_col:
                         f"File exists and ready for processing: {st.session_state.pdf_content}"
                     )
 
-                    # Call the parser's extract_text method
-                    conversion_result = parser.extract_text(
+                    # Call the parser's parse method
+                    conversion_result = parser.parse(
                         st.session_state.pdf_content, start_page, 5
                     )
                     logger.info("Conversion completed successfully")

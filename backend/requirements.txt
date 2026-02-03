@@ -2,8 +2,8 @@ streamlit
 pymupdf
 docling-parse
 # pdfplumber
-"magic-pdf[full]"
-"unstructured[pdf]"
+magic-pdf[full]
+unstructured[pdf]
 pypdf
 sycamore-ai
 loguru

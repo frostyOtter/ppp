@@ -25,7 +25,7 @@ class PyPDF2Parser(PDFParser):
     def link(self):
         return "https://pypdf2.readthedocs.io/"
 
-    def extract_text(self, file_path, start_page, max_pages):
+    def parse(self, file_path, start_page, max_pages):
         """
         Extract text from a PDF file using PyPDF2.
 
