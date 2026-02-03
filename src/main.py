@@ -1,19 +1,20 @@
-import streamlit as st
+import base64
 import os
 import tempfile
-from pathlib import Path
-import base64
 import traceback
+from pathlib import Path
+
+import streamlit as st
 
 # Replace built-in logging with loguru
 from loguru import logger
 
 # Import our parser modules
 from parsers import (
+    analyze_pdf_structure,
     get_available_parsers,
     get_parser,
     pdf_diagnostic_info,
-    analyze_pdf_structure,
 )
 
 # Set page config

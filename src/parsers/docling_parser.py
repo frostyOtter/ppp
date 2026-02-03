@@ -1,11 +1,12 @@
-from .base_parser import PDFParser
 import os
-import pandas as pd
 import tempfile
-from pathlib import Path
 import traceback
+from pathlib import Path
 
+import pandas as pd
 from loguru import logger
+
+from .base_parser import PDFParser
 
 
 class DoclingParser(PDFParser):
@@ -152,7 +153,7 @@ class DoclingParser(PDFParser):
             # Add information about images if available
             if hasattr(conv_res.document, "images") and conv_res.document.images:
                 logger.info(f"Found {len(conv_res.document.images)} images in document")
-                markdown_output += f"## Images\n\n"
+                markdown_output += "## Images\n\n"
                 markdown_output += (
                     f"The document contains {len(conv_res.document.images)} images.\n\n"
                 )

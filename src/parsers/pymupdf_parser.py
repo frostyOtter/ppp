@@ -1,8 +1,9 @@
-from .base_parser import PDFParser
 import os
 import traceback
 
 from loguru import logger
+
+from .base_parser import PDFParser
 
 
 class PyMuPDFParser(PDFParser):
@@ -99,8 +100,8 @@ class PyMuPDFParser(PDFParser):
                 f"Extracting text from pages {start_page} to {min(start_page + max_pages - 1, doc.page_count)}"
             )
 
-            text = f"# Document Analysis with PyMuPDF\n\n"
-            text += f"## Document Information\n\n"
+            text = "# Document Analysis with PyMuPDF\n\n"
+            text += "## Document Information\n\n"
 
             # Add document metadata if available
             if doc.metadata:
@@ -161,7 +162,7 @@ class PyMuPDFParser(PDFParser):
                     image_count += len(image_list)
 
                 if image_count > 0:
-                    text += f"## Images\n\n"
+                    text += "## Images\n\n"
                     text += f"The document contains approximately {image_count} images in the selected pages.\n\n"
             except Exception as e:
                 logger.error(f"Error counting images: {str(e)}")

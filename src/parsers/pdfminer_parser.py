@@ -1,7 +1,8 @@
-from .base_parser import PDFParser
 import traceback
 
 from loguru import logger
+
+from .base_parser import PDFParser
 
 
 class PDFMinerParser(PDFParser):
@@ -38,12 +39,13 @@ class PDFMinerParser(PDFParser):
         """
         try:
             # Import here to avoid errors if PDFMiner is not installed
-            from pdfminer.high_level import extract_text
-            from pdfminer.pdfpage import PDFPage
-            from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
-            from pdfminer.converter import TextConverter
-            from pdfminer.layout import LAParams
             import io
+
+            from pdfminer.converter import TextConverter
+            from pdfminer.high_level import extract_text
+            from pdfminer.layout import LAParams
+            from pdfminer.pdfinterp import PDFPageInterpreter, PDFResourceManager
+            from pdfminer.pdfpage import PDFPage
 
             logger.info(f"Opening PDF with PDFMiner: {file_path}")
 
@@ -74,8 +76,8 @@ class PDFMinerParser(PDFParser):
                 f"Extracting text from pages {start_page} to {min(start_page + max_pages - 1, page_count)}"
             )
 
-            text = f"# Document Analysis with PDFMiner\n\n"
-            text += f"## Document Information\n\n"
+            text = "# Document Analysis with PDFMiner\n\n"
+            text += "## Document Information\n\n"
             text += f"- **Total Pages**: {page_count}\n\n"
 
             # Extract text page by page

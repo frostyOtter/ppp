@@ -6,11 +6,11 @@ This package contains implementations of various PDF parsing libraries.
 
 from loguru import logger
 
+from .docling_parser import DoclingParser
+from .pdfminer_parser import PDFMinerParser
 from .pymupdf_parser import PyMuPDFParser
 from .pypdf2_parser import PyPDF2Parser
-from .pdfminer_parser import PDFMinerParser
-from .docling_parser import DoclingParser
-from .utils import pdf_diagnostic_info, analyze_pdf_structure
+from .utils import analyze_pdf_structure, pdf_diagnostic_info
 
 # Create instances of all parsers
 parsers = {

@@ -1,7 +1,8 @@
-from .base_parser import PDFParser
 import traceback
 
 from loguru import logger
+
+from .base_parser import PDFParser
 
 
 class PyPDF2Parser(PDFParser):
@@ -63,8 +64,8 @@ class PyPDF2Parser(PDFParser):
                         f"Extracting text from pages {start_page} to {min(start_page + max_pages - 1, len(reader.pages))}"
                     )
 
-                    text = f"# Document Analysis with PyPDF2\n\n"
-                    text += f"## Document Information\n\n"
+                    text = "# Document Analysis with PyPDF2\n\n"
+                    text += "## Document Information\n\n"
                     text += f"- **Total Pages**: {len(reader.pages)}\n"
                     text += (
                         f"- **Encrypted**: {'Yes' if reader.is_encrypted else 'No'}\n\n"
