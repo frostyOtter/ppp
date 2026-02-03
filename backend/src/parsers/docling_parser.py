@@ -3,7 +3,6 @@ import tempfile
 import traceback
 from pathlib import Path
 
-import pandas as pd
 from loguru import logger
 
 from .base_parser import PDFParser
@@ -33,7 +32,7 @@ class DoclingParser(PDFParser):
     def link(self):
         return "https://github.com/example/docling"  # Replace with actual link when available
 
-    def extract_text(self, file_path, start_page, max_pages):
+    def parse(self, file_path, start_page, max_pages):
         """
         Extract text and tables from a PDF file using Docling.
 
@@ -140,7 +139,7 @@ class DoclingParser(PDFParser):
                         with html_filename.open("w") as fp:
                             fp.write(table.export_to_html(doc=conv_res.document))
 
-                        markdown_output += f"*Table {table_ix + 1} has been saved as CSV and HTML.*\n\n"
+                        # markdown_output += f"*Table {table_ix + 1} has been saved as CSV and HTML.*\n\n"
                     except Exception as e:
                         detailed_error = traceback.format_exc()
                         logger.error(

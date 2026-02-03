@@ -26,7 +26,7 @@ class PyMuPDFParser(PDFParser):
     def link(self):
         return "https://pymupdf.readthedocs.io/"
 
-    def extract_text(self, file_path, start_page, max_pages):
+    def parse(self, file_path, start_page, max_pages):
         """
         Extract text from a PDF file using PyMuPDF.
 

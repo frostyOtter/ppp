@@ -25,7 +25,7 @@ class PDFMinerParser(PDFParser):
     def link(self):
         return "https://github.com/pdfminer/pdfminer.six"
 
-    def extract_text(self, file_path, start_page, max_pages):
+    def parse(self, file_path, start_page, max_pages):
         """
         Extract text from a PDF file using PDFMiner.
 
