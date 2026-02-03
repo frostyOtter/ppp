@@ -1,8 +1,35 @@
 import { FileUpload, ParserSettings, ResultViewer, LoadingSpinner, ErrorMessage } from './components';
 import { useApp } from './context/AppContext';
+import { uploadPdf } from './api/client';
 
 function App() {
-  const { isProcessing, result, error, setError } = useApp();
+  const { 
+    file, 
+    parser, 
+    isProcessing, 
+    result, 
+    error, 
+    setError, 
+    setIsProcessing, 
+    setResult 
+  } = useApp();
+
+  const handleProcess = async () => {
+    if (!file) return;
+
+    setIsProcessing(true);
+    setError(null);
+    setResult(null);
+
+    try {
+      const data = await uploadPdf(file, parser);
+      setResult(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
@@ -32,6 +59,20 @@ function App() {
           <div className="space-y-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
               <FileUpload />
+              <div className="mt-6 flex justify-end">
+                <button
+                  onClick={handleProcess}
+                  disabled={!file || isProcessing}
+                  className={`
+                    px-6 py-2 rounded-lg font-semibold text-white transition-colors
+                    ${!file || isProcessing
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800'}
+                  `}
+                >
+                  {isProcessing ? 'Processing...' : 'Process PDF'}
+                </button>
+              </div>
             </div>
 
             {error && (
