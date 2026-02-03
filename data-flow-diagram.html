@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPP Data Flow Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .diagram-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 100%;
+            overflow-x: auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Data Flow Diagram</h1>
+    <div class="diagram-container">
+        <div class="mermaid">
+graph TD
+    User[User] -->|Uploads PDF & Selects Strategy| FE[Frontend (React)]
+    FE -->|POST /api/parse| API[Backend API (FastAPI)]
+    
+    subgraph "Backend Core"
+        API -->|Validate Request| Router
+        Router -->|Dispatch Job| Service[Parsing Service]
+        Service -->|Select Strategy| Factory[Parser Factory]
+        Factory -->|Instantiate| Parser[Concrete Parser]
+        
+        Parser -->|Read File| FS[File System / Temp]
+        Parser -->|Extract Text| Lib[PDF Library (PyMuPDF/etc)]
+        Lib -->|Raw Text| Parser
+        Parser -->|Normalized Data| Service
+    end
+    
+    Service -->|JSON Result| API
+    API -->|JSON Response| FE
+    FE -->|Display Text| User
+        </div>
+    </div>
+</body>
+</html>
