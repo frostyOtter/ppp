@@ -39,6 +39,19 @@ The project follows a Domain-Centric / Hexagonal Architecture to ensure separati
 - **Node.js:** 20 or higher
 - **uv:** An extremely fast Python package installer and resolver.
 
+### Docker Setup
+
+The easiest way to run the application is using Docker.
+
+1. Build and run the application:
+   ```bash
+   docker-compose up --build
+   ```
+
+2. Access the services:
+   - **Frontend:** `http://localhost:5173`
+   - **Backend API:** `http://localhost:8000` (Docs at `/docs`)
+
 ### Backend Setup
 
 1. Navigate to the backend directory:
