@@ -1,11 +1,11 @@
 import React from 'react';
 
 interface ErrorMessageProps {
-  message: string;
+  message: string | null;
   onDismiss?: () => void;
 }
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({ message, onDismiss }) => {
+export const ErrorMessage: React.FC<ErrorMessageProps> = ({ message, onDismiss }) => {
   if (!message) return null;
 
   return (
@@ -24,4 +24,3 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({ message, onDismiss }) => {
   );
 };
 
-export default ErrorMessage;

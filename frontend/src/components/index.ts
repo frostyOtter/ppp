@@ -1,5 +1,5 @@
-export * from './FileUpload';
-export * from './ParserSettings';
-export { default as ResultViewer } from './ResultViewer';
-export { default as LoadingSpinner } from './LoadingSpinner';
-export { default as ErrorMessage } from './ErrorMessage';
+export { FileUpload } from './FileUpload';
+export { ErrorMessage } from './ErrorMessage';
+export { FileReview } from './FileReview';
+export { ParserSelector } from './ParserSelector';
+export { ResultGrid } from './ResultGrid';
