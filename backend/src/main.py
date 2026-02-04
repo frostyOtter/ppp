@@ -5,6 +5,7 @@ import sys
 import tempfile
 import os
 import shutil
+import time
 
 from src.parsers import get_parser
 
@@ -87,7 +88,10 @@ async def parse_pdf(
             logger.info(f"Parsing with {internal_parser_name}, start_page={parser_start_page}, max_pages={max_pages}")
             
             try:
+                start_time = time.perf_counter()
                 extracted_content = parser.parse(tmp_file_path, parser_start_page, max_pages)
+                end_time = time.perf_counter()
+                duration_ms = (end_time - start_time) * 1000
                 
                 # Check for error indicator in content (simple check based on return format)
                 if extracted_content.startswith("# Error"):
@@ -104,7 +108,8 @@ async def parse_pdf(
                     "metadata": {
                         "parser": parser_type,
                         "pages_processed": max_pages, # This is an approximation/request, not actual
-                        "filename": file.filename
+                        "filename": file.filename,
+                        "duration_ms": duration_ms
                     },
                     "content": extracted_content
                 }

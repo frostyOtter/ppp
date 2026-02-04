@@ -1,102 +1,103 @@
-import { FileUpload, ParserSettings, ResultViewer, LoadingSpinner, ErrorMessage } from './components';
+import { FileUpload, ErrorMessage, FileReview, ParserSelector, ResultGrid } from './components';
 import { useApp } from './context/AppContext';
-import { uploadPdf } from './api/client';
+import * as api from './api/client';
 
 function App() {
   const { 
     file, 
-    parser, 
-    isProcessing, 
-    result, 
-    error, 
-    setError, 
-    setIsProcessing, 
-    setResult 
+    globalError, 
+    selectedParsers, 
+    isGlobalProcessing, 
+    setIsGlobalProcessing, 
+    setGlobalError, 
+    updateResult 
   } = useApp();
 
   const handleProcess = async () => {
-    if (!file) return;
+    if (!file || selectedParsers.length === 0) return;
+    
+    setIsGlobalProcessing(true);
+    setGlobalError(null);
+    
+    // Initialize results for selected parsers to pending
+    selectedParsers.forEach(p => {
+        updateResult(p, { status: 'pending' });
+    });
 
-    setIsProcessing(true);
-    setError(null);
-    setResult(null);
+    // Create a promise for each parser
+    const promises = selectedParsers.map(async (parserId) => {
+        const startTime = Date.now();
+        try {
+            const data = await api.uploadPdf(file, parserId);
+            updateResult(parserId, { 
+                status: 'success', 
+                data, 
+                durationMs: data.metadata.duration_ms
+            });
+        } catch (err: any) {
+            const durationMs = Date.now() - startTime;
+             updateResult(parserId, { 
+                status: 'error', 
+                error: err.message || 'Unknown error',
+                durationMs
+            });
+        }
+    });
 
-    try {
-      const data = await uploadPdf(file, parser);
-      setResult(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
-    } finally {
-      setIsProcessing(false);
-    }
+    // Wait for all to finish
+    await Promise.all(promises);
+    setIsGlobalProcessing(false);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
-      {/* Sidebar */}
-      <aside className="w-full md:w-64 bg-white border-r border-gray-200 p-6 flex-shrink-0">
-        <h1 className="text-xl font-bold text-gray-800 mb-6">PDF Parser</h1>
-        <div className="space-y-6">
-          <div>
-            <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">
-              Configuration
-            </h2>
-            <ParserSettings />
-          </div>
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">PDF Parser Arena</h1>
+          <p className="mt-3 text-lg text-gray-500">Compare results from different PDF parsing engines side-by-side</p>
         </div>
-      </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 p-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Upload Document</h2>
-            <p className="text-gray-600">
-              Select a PDF file to process using the configured parser.
-            </p>
-          </div>
-          
-          <div className="space-y-6">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <FileUpload />
-              <div className="mt-6 flex justify-end">
-                <button
-                  onClick={handleProcess}
-                  disabled={!file || isProcessing}
-                  className={`
-                    px-6 py-2 rounded-lg font-semibold text-white transition-colors
-                    ${!file || isProcessing
-                      ? 'bg-gray-400 cursor-not-allowed'
-                      : 'bg-blue-600 hover:bg-blue-700 active:bg-blue-800'}
-                  `}
-                >
-                  {isProcessing ? 'Processing...' : 'Process PDF'}
-                </button>
-              </div>
-            </div>
+        <ErrorMessage message={globalError} />
 
-            {error && (
-              <ErrorMessage 
-                message={error} 
-                onDismiss={() => setError(null)} 
-              />
-            )}
-
-            {isProcessing ? (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 min-h-[200px] flex items-center justify-center">
-                <LoadingSpinner />
-              </div>
-            ) : (
-              result && (
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">Parsed Result</h3>
-                  <ResultViewer content={result.content} />
+        <div className="transition-all duration-500 ease-in-out">
+          {!file ? (
+             <div className="max-w-xl mx-auto">
+               <FileUpload />
+             </div>
+          ) : (
+            <>
+                <FileReview />
+                
+                <ParserSelector />
+                
+                <div className="flex justify-center mb-12">
+                    <button
+                        onClick={handleProcess}
+                        disabled={selectedParsers.length === 0 || isGlobalProcessing}
+                        className={`
+                            px-8 py-3 rounded-lg font-semibold text-lg transition-all transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+                            ${selectedParsers.length > 0 && !isGlobalProcessing
+                                ? 'bg-blue-600 text-white shadow-lg hover:bg-blue-700 hover:-translate-y-0.5' 
+                                : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'}
+                        `}
+                    >
+                        {isGlobalProcessing ? (
+                            <span className="flex items-center">
+                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Processing...
+                            </span>
+                        ) : 'Start Processing'}
+                    </button>
                 </div>
-              )
-            )}
-          </div>
+
+                <ResultGrid />
+            </>
+          )}
         </div>
-      </main>
+      </div>
     </div>
   );
 }

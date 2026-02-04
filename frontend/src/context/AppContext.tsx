@@ -2,53 +2,89 @@
  * AppContext.tsx
  * 
  * Provides global state management for the application using React Context.
- * Manages the current file, parser selection, processing state, results, and errors.
- * 
- * Usage:
- * Wrap your application with <AppProvider>.
- * Use the useApp() hook to access state and actions in components.
+ * Manages the current file, parser selection (multi-select), processing state, and results map.
  */
 import { createContext, useContext, useState, type ReactNode } from 'react';
-import type { AppState, ParserType, ParseResponse } from '../types';
+import type { AppState, ParserType, ParserResult } from '../types';
 
 interface AppContextProps extends AppState {
   setFile: (file: File | null) => void;
-  setParser: (parser: ParserType) => void;
-  setIsProcessing: (isProcessing: boolean) => void;
-  setResult: (result: ParseResponse | null) => void;
-  setError: (error: string | null) => void;
+  toggleParser: (parser: ParserType) => void;
+  setIsGlobalProcessing: (isProcessing: boolean) => void;
+  updateResult: (parser: ParserType, result: ParserResult) => void;
+  resetResults: () => void;
+  setGlobalError: (error: string | null) => void;
   resetState: () => void;
+  removeFile: () => void;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [file, setFile] = useState<File | null>(null);
-  const [parser, setParser] = useState<ParserType>('docling');
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [result, setResult] = useState<ParseResponse | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [file, setFileState] = useState<File | null>(null);
+  const [selectedParsers, setSelectedParsers] = useState<ParserType[]>([]);
+  const [results, setResults] = useState<Record<string, ParserResult>>({});
+  const [isGlobalProcessing, setIsGlobalProcessing] = useState(false);
+  const [globalError, setGlobalError] = useState<string | null>(null);
+
+  const setFile = (newFile: File | null) => {
+    setFileState(newFile);
+    // When file changes, reset results and error
+    setResults({});
+    setGlobalError(null);
+  };
+
+  const toggleParser = (parser: ParserType) => {
+    setSelectedParsers(prev =>
+      prev.includes(parser)
+        ? prev.filter(p => p !== parser)
+        : [...prev, parser]
+    );
+  };
+
+  const updateResult = (parser: ParserType, result: ParserResult) => {
+    setResults(prev => ({
+      ...prev,
+      [parser]: result
+    }));
+  };
+
+  const resetResults = () => {
+    setResults({});
+    setIsGlobalProcessing(false);
+    setGlobalError(null);
+  };
+
+  const removeFile = () => {
+    setFileState(null);
+    setResults({});
+    setIsGlobalProcessing(false);
+    setGlobalError(null);
+    // Note: We deliberately keep selectedParsers so user doesn't have to re-select
+  };
 
   const resetState = () => {
-    setFile(null);
-    setParser('docling');
-    setIsProcessing(false);
-    setResult(null);
-    setError(null);
+    setFileState(null);
+    setSelectedParsers([]);
+    setResults({});
+    setIsGlobalProcessing(false);
+    setGlobalError(null);
   };
 
   const value = {
     file,
-    parser,
-    isProcessing,
-    result,
-    error,
+    selectedParsers,
+    results,
+    isGlobalProcessing,
+    globalError,
     setFile,
-    setParser,
-    setIsProcessing,
-    setResult,
-    setError,
+    toggleParser,
+    setIsGlobalProcessing,
+    updateResult,
+    resetResults,
+    setGlobalError,
     resetState,
+    removeFile
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
