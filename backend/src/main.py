@@ -6,6 +6,7 @@ import tempfile
 import os
 import shutil
 import time
+from pypdf import PdfReader
 
 from src.parsers import get_parser
 
@@ -80,6 +81,20 @@ async def parse_pdf(
             tmp_file.flush()
             
             logger.info(f"Saved uploaded file to {tmp_file_path}")
+
+            # Check page count
+            try:
+                reader = PdfReader(tmp_file_path)
+                if len(reader.pages) > 25:
+                    logger.warning(f"File {file.filename} exceeds page limit: {len(reader.pages)} > 25")
+                    raise HTTPException(
+                        status_code=400, 
+                        detail=f"File too large. Maximum 25 pages allowed (file has {len(reader.pages)} pages)."
+                    )
+            except HTTPException:
+                raise
+            except Exception as e:
+                logger.warning(f"Could not check page count for validation: {e}")
             
             # Call the parser
             # API uses 0-based index, Parser uses 1-based index
@@ -118,6 +133,8 @@ async def parse_pdf(
                 logger.error(f"Error during parsing: {str(e)}")
                 raise HTTPException(status_code=500, detail=f"Parsing failed: {str(e)}")
                 
+        except HTTPException:
+            raise
         except Exception as e:
             logger.error(f"Error handling file upload: {str(e)}")
             raise HTTPException(status_code=500, detail=f"File processing failed: {str(e)}")
