@@ -12,7 +12,7 @@ export const ParserSelector = () => {
   const { selectedParsers, toggleParser, isGlobalProcessing } = useApp();
 
   return (
-    <div className="mb-8">
+    <div>
       <h3 className="text-lg font-medium text-gray-900 mb-4">Select Parsers to Run</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {PARSERS.map((p) => {
