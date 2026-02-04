@@ -65,12 +65,12 @@ function App() {
                <FileUpload />
              </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                <div className="lg:sticky lg:top-8 lg:h-[calc(100vh-4rem)] overflow-hidden flex flex-col">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <div className="lg:col-span-1 lg:sticky lg:top-8 lg:h-[calc(100vh-4rem)] overflow-hidden flex flex-col">
                     <FileReview />
                 </div>
                 
-                <div className="flex flex-col gap-6 w-full min-w-0">
+                <div className="lg:col-span-2 flex flex-col gap-6 w-full min-w-0">
                     <ParserSelector />
                     
                     <div className="flex justify-center">
