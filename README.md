@@ -1,97 +1,84 @@
-# PDF Parser Project (PPP)
+# 📄 PDF Parser Project (PPP)
 
-A modern web application for parsing PDF documents using multiple strategies. This project provides a user-friendly interface to upload PDFs, select different parsing algorithms, and view the extracted text results.
+![Project Banner](https://placehold.co/1200x300/1e293b/38bdf8?text=PDF+Parser+Project+(PPP)&font=montserrat)
+<!-- Replace the above URL with the actual banner once generated -->
+
+**A modern, robust web application for extracting text and insights from PDF documents using multiple advanced parsing strategies.**
+
+---
+
+## 🌟 Overview
+
+**PPP** is designed to provide developers and users with a flexible interface to parse PDF documents. By leveraging a **Hexagonal Architecture**, the system decouples the core parsing logic from the external interfaces, allowing for easy addition of new parsers and distinct front-end experiences.
+
+### 🎯 Key Features
+
+-   **🧩 Multi-Strategy Parsing:** Choose the best tool for the job.
+    -   `Docling`: Advanced document structure analysis.
+    -   `PyMuPDF`: Fast, high-fidelity text extraction.
+    -   `PDFMiner`: Detailed layout and location data.
+    -   `PyPDF2`: Lightweight metadata and basic text.
+-   **⚡ Real-Time Feedback:** Instant progress updates and error reporting.
+-   **🎨 Modern UI:** A responsive, dark-themed interface built with React and Tailwind CSS.
+-   **🐳 Docker Ready:** Fully containerized for easy deployment.
+
+---
 
 ## 🏗 Architecture
 
-The project follows a Domain-Centric / Hexagonal Architecture to ensure separation of concerns and maintainability.
+The project adheres to **Domain-Centric / Hexagonal Architecture** principles:
 
-### Frontend
-- **Framework:** React 18 with TypeScript
-- **Build Tool:** Vite
-- **Styling:** Tailwind CSS
-- **State Management:** React Context API
-- **HTTP Client:** Native `fetch` with custom wrapper
+| Layer | Description |
+| :--- | :--- |
+| **Frontend** | React 18, TypeScript, Tailwind CSS, Vite. |
+| **Backend** | Python 3.12+, FastAPI, `uv` for dependency management. |
+| **Domain** | Pure business logic, isolated from frameworks. |
+| **Infrastructure** | Adapters for specific libraries (Docling, PDFMiner, etc.). |
 
-### Backend
-- **Framework:** FastAPI (Python 3.12+)
-- **Dependency Management:** `uv`
-- **Architecture Layers:**
-  - **Domain:** Core business logic and interfaces (Ports).
-  - **Application:** Use cases and orchestration.
-  - **Infrastructure:** External adapters (Parsers, File System, API).
+---
 
-## 🚀 Features
+## 🚀 Quick Start
 
-- **Multi-Strategy Parsing:** Support for various PDF parsing libraries:
-  - `PyPDF2`: Basic text extraction.
-  - `PyMuPDF`: High-fidelity extraction.
-  - `PDFMiner`: Layout analysis.
-  - `Docling`: Advanced document processing.
-- **Real-time Feedback:** Progress indicators and error handling.
-- **Clean UI:** Responsive design with a sidebar for settings and a main content area for results.
-
-## 🛠 Getting Started
+The fastest way to get running is via Docker.
 
 ### Prerequisites
 
-- **Python:** 3.12 or higher
-- **Node.js:** 20 or higher
-- **uv:** An extremely fast Python package installer and resolver.
+-   Docker & Docker Compose
 
-### Docker Setup
+### Run the App
 
-The easiest way to run the application is using Docker.
+```bash
+docker-compose up --build
+```
 
-1. Build and run the application:
-   ```bash
-   docker-compose up --build
-   ```
+Access the application:
+-   **Frontend:** [http://localhost:5173](http://localhost:5173)
+-   **Backend API Docs:** [http://localhost:8000/docs](http://localhost:8000/docs)
 
-2. Access the services:
-   - **Frontend:** `http://localhost:5173`
-   - **Backend API:** `http://localhost:8000` (Docs at `/docs`)
+---
 
-### Backend Setup
+## 👩‍💻 Developer Guide
 
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
+For detailed setup instructions for specific components, please refer to their respective READMEs:
 
-2. Install dependencies:
-   ```bash
-   uv sync
-   ```
+-   [**Backend Documentation**](./backend/README.md) - Setup, testing, and API details.
+-   [**Frontend Documentation**](./frontend/README.md) - Components, state management, and styling.
 
-3. Run the development server:
-   ```bash
-   uv run fastapi dev src/main.py
-   ```
-   The API will be available at `http://localhost:8000`.
+### Project Structure
 
-### Frontend Setup
+```mermaid
+graph TD
+    Root --> Backend
+    Root --> Frontend
+    Backend --> Src
+    Src --> Domain
+    Src --> Parsers
+    Frontend --> Components
+    Frontend --> Context
+```
 
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
+---
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+## 📜 License
 
-3. Run the development server:
-   ```bash
-   npm run dev
-   ```
-   The application will be available at `http://localhost:5173`.
-
-## 📂 Project Structure
-
-For a detailed view of the directory structure, please refer to `project-structure.html`.
-
-## 🔄 Data Flow
-
-For a visualization of how data moves through the application, please refer to `data-flow-diagram.html`.
+This project is licensed under the MIT License.
