@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { ParserResult, ParserType } from '../types';
 
 interface ResultCardProps {
@@ -8,20 +7,8 @@ interface ResultCardProps {
 
 export const ResultCard = ({ parserId, result }: ResultCardProps) => {
   const { status, data, error, durationMs } = result;
-  const [copied, setCopied] = useState(false);
   
   const parserLabel = parserId.charAt(0).toUpperCase() + parserId.slice(1);
-
-  const handleCopy = async () => {
-    if (!data?.content) return;
-    try {
-      await navigator.clipboard.writeText(data.content);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
-    }
-  };
 
   const handleDownload = (format: 'md' | 'json') => {
     if (!data) return;
@@ -59,13 +46,6 @@ export const ResultCard = ({ parserId, result }: ResultCardProps) => {
         <div className="flex items-center space-x-2">
             {status === 'success' && data && (
                 <>
-                    <button 
-                        onClick={handleCopy}
-                        className="text-xs bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-2 py-1 rounded shadow-sm transition-colors"
-                        title="Copy to clipboard"
-                    >
-                        {copied ? 'Copied!' : 'Copy'}
-                    </button>
                     <button 
                         onClick={() => handleDownload('md')}
                         className="text-xs bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-2 py-1 rounded shadow-sm transition-colors"
