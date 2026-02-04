@@ -39,7 +39,7 @@ class PyPDF2Parser(PDFParser):
         """
         try:
             # Import here to avoid errors if PyPDF2 is not installed
-            import PyPDF2
+            import pypdf as PyPDF2
 
             logger.info(f"Opening PDF with PyPDF2: {file_path}")
 
