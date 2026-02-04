@@ -1,6 +1,6 @@
 # 📄 PDF Parser Project (PPP)
 
-![Project Banner](https://placehold.co/1200x300/1e293b/38bdf8?text=PDF+Parser+Project+(PPP)&font=montserrat)
+![Project banner](assets/Banner-Gemini-generated.png)
 <!-- Replace the above URL with the actual banner once generated -->
 
 **A modern, robust web application for extracting text and insights from PDF documents using multiple advanced parsing strategies.**
@@ -18,22 +18,7 @@
     -   `PyMuPDF`: Fast, high-fidelity text extraction.
     -   `PDFMiner`: Detailed layout and location data.
     -   `PyPDF2`: Lightweight metadata and basic text.
--   **⚡ Real-Time Feedback:** Instant progress updates and error reporting.
--   **🎨 Modern UI:** A responsive, dark-themed interface built with React and Tailwind CSS.
--   **🐳 Docker Ready:** Fully containerized for easy deployment.
 
----
-
-## 🏗 Architecture
-
-The project adheres to **Domain-Centric / Hexagonal Architecture** principles:
-
-| Layer | Description |
-| :--- | :--- |
-| **Frontend** | React 18, TypeScript, Tailwind CSS, Vite. |
-| **Backend** | Python 3.12+, FastAPI, `uv` for dependency management. |
-| **Domain** | Pure business logic, isolated from frameworks. |
-| **Infrastructure** | Adapters for specific libraries (Docling, PDFMiner, etc.). |
 
 ---
 
