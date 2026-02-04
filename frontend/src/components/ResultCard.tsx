@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { ParserResult, ParserType } from '../types';
 
 interface ResultCardProps {
@@ -7,18 +8,86 @@ interface ResultCardProps {
 
 export const ResultCard = ({ parserId, result }: ResultCardProps) => {
   const { status, data, error, durationMs } = result;
+  const [copied, setCopied] = useState(false);
   
   const parserLabel = parserId.charAt(0).toUpperCase() + parserId.slice(1);
+
+  const handleCopy = async () => {
+    if (!data?.content) return;
+    try {
+      await navigator.clipboard.writeText(data.content);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
+  const handleDownload = (format: 'md' | 'json') => {
+    if (!data) return;
+    
+    const originalName = data.metadata?.filename || 'document';
+    const baseName = originalName.replace(/\.[^/.]+$/, "");
+    const fileName = `${baseName}_${parserId}.${format}`;
+    
+    let content = '';
+    let mimeType = '';
+
+    if (format === 'md') {
+      content = data.content;
+      mimeType = 'text/markdown';
+    } else {
+      content = JSON.stringify(data, null, 2);
+      mimeType = 'application/json';
+    }
+
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden flex flex-col h-96">
       <div className="bg-gray-50 px-4 py-3 border-b border-gray-200 flex justify-between items-center">
         <h3 className="font-medium text-gray-900">{parserLabel}</h3>
-        {status === 'success' && durationMs && (
-          <span className="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded-full">
-            {(durationMs / 1000).toFixed(2)}s
-          </span>
-        )}
+        <div className="flex items-center space-x-2">
+            {status === 'success' && data && (
+                <>
+                    <button 
+                        onClick={handleCopy}
+                        className="text-xs bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-2 py-1 rounded shadow-sm transition-colors"
+                        title="Copy to clipboard"
+                    >
+                        {copied ? 'Copied!' : 'Copy'}
+                    </button>
+                    <button 
+                        onClick={() => handleDownload('md')}
+                        className="text-xs bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-2 py-1 rounded shadow-sm transition-colors"
+                        title="Download Markdown"
+                    >
+                        MD
+                    </button>
+                    <button 
+                        onClick={() => handleDownload('json')}
+                        className="text-xs bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-2 py-1 rounded shadow-sm transition-colors"
+                        title="Download JSON"
+                    >
+                        JSON
+                    </button>
+                </>
+            )}
+            {status === 'success' && durationMs && (
+            <span className="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded-full">
+                {(durationMs / 1000).toFixed(2)}s
+            </span>
+            )}
+        </div>
       </div>
       
       <div className="p-4 flex-1 overflow-auto bg-gray-50/50">
