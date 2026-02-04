@@ -5,7 +5,7 @@ const BASE_URL = 'http://localhost:8000';
 export async function uploadPdf(file: File, parser: string): Promise<ParseResponse> {
   const formData = new FormData();
   formData.append('file', file);
-  formData.append('parser', parser);
+  formData.append('parser_type', parser);
 
   const response = await fetch(`${BASE_URL}/api/v1/parse`, {
     method: 'POST',

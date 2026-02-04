@@ -53,3 +53,23 @@
 2026-02-04 11:13:46.952 | ERROR    | src.main:parse_pdf:113 - Error during parsing: Parsing crashed
 2026-02-04 11:13:46.952 | ERROR    | src.main:parse_pdf:117 - Error handling file upload: 500: Parsing failed: Parsing crashed
 2026-02-04 11:13:46.952 | INFO     | src.main:parse_pdf:124 - Deleted temp file /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpozhzivje.pdf
+2026-02-04 14:24:35.961 | INFO     | src.parsers.docling_parser:parse:52 - Successfully imported Docling
+2026-02-04 14:24:35.961 | INFO     | src.parsers.docling_parser:parse:60 - Created temporary directory for outputs: /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpcmrnol4u
+2026-02-04 14:24:35.961 | INFO     | src.parsers.docling_parser:parse:66 - Converting document: dummy.pdf
+2026-02-04 14:24:35.961 | INFO     | src.parsers.docling_parser:parse:74 - Document conversion successful
+2026-02-04 14:24:35.961 | INFO     | src.parsers.docling_parser:parse:88 - Adding document metadata
+2026-02-04 14:24:35.961 | INFO     | src.parsers.docling_parser:parse:103 - Processing page 1
+2026-02-04 14:24:35.961 | SUCCESS  | src.parsers.docling_parser:parse:160 - Docling extraction completed successfully
+2026-02-04 14:24:35.961 | INFO     | src.parsers.docling_parser:parse:174 - Cleaning up temporary directory: /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpcmrnol4u
+2026-02-04 14:24:35.963 | INFO     | src.main:read_root:34 - Root endpoint called
+2026-02-04 14:24:35.967 | INFO     | src.main:parse_pdf:51 - Received parse request: parser=docling, filename=test.pdf
+2026-02-04 14:24:35.968 | INFO     | src.main:parse_pdf:81 - Saved uploaded file to /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpzq_f_utc.pdf
+2026-02-04 14:24:35.968 | INFO     | src.main:parse_pdf:87 - Parsing with Docling, start_page=1, max_pages=5
+2026-02-04 14:24:35.968 | INFO     | src.main:parse_pdf:124 - Deleted temp file /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpzq_f_utc.pdf
+2026-02-04 14:24:35.969 | INFO     | src.main:parse_pdf:51 - Received parse request: parser=invalid_parser_type, filename=test.pdf
+2026-02-04 14:24:35.976 | INFO     | src.main:parse_pdf:51 - Received parse request: parser=docling, filename=test.pdf
+2026-02-04 14:24:35.976 | INFO     | src.main:parse_pdf:81 - Saved uploaded file to /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpf63i1em5.pdf
+2026-02-04 14:24:35.976 | INFO     | src.main:parse_pdf:87 - Parsing with Docling, start_page=1, max_pages=10
+2026-02-04 14:24:35.976 | ERROR    | src.main:parse_pdf:113 - Error during parsing: Parsing crashed
+2026-02-04 14:24:35.976 | ERROR    | src.main:parse_pdf:117 - Error handling file upload: 500: Parsing failed: Parsing crashed
+2026-02-04 14:24:35.976 | INFO     | src.main:parse_pdf:124 - Deleted temp file /var/folders/_7/4rs7vqk11pvcd5yzy892jptc0000gp/T/tmpf63i1em5.pdf
