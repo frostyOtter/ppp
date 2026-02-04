@@ -88,9 +88,9 @@ async def parse_pdf(
             logger.info(f"Parsing with {internal_parser_name}, start_page={parser_start_page}, max_pages={max_pages}")
             
             try:
-                start_time = time.time()
+                start_time = time.perf_counter()
                 extracted_content = parser.parse(tmp_file_path, parser_start_page, max_pages)
-                end_time = time.time()
+                end_time = time.perf_counter()
                 duration_ms = (end_time - start_time) * 1000
                 
                 # Check for error indicator in content (simple check based on return format)
