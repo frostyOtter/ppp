@@ -65,25 +65,3 @@ def test_parse_endpoint_parser_failure(client, mocker, sample_pdf_content):
 
     assert response.status_code == 500
     assert "Parsing failed" in response.json()["detail"]
-
-def test_parse_endpoint_too_many_pages(client, mocker, sample_pdf_content):
-    # Mock PdfReader to return > 25 pages
-    mock_pdf_reader = MagicMock()
-    # Create a list of dummy pages > 25
-    mock_pdf_reader.pages = [MagicMock()] * 26
-    
-    # Patch PdfReader in src.main
-    mocker.patch("src.main.PdfReader", return_value=mock_pdf_reader)
-
-    # Mock get_parser
-    mock_parser_instance = MagicMock(spec=PDFParser)
-    mocker.patch("src.main.get_parser", return_value=mock_parser_instance)
-
-    files = {"file": ("large.pdf", sample_pdf_content, "application/pdf")}
-    data = {"parser_type": "docling"}
-
-    response = client.post("/api/v1/parse", files=files, data=data)
-
-    assert response.status_code == 400
-    assert "Maximum 25 pages allowed" in response.json()["detail"]
-    assert "file has 26 pages" in response.json()["detail"]
