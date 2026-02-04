@@ -34,6 +34,8 @@ def test_parse_endpoint_success(client, mocker, sample_pdf_content):
     assert json_response["status"] == "success"
     assert json_response["content"] == expected_content
     assert json_response["metadata"]["parser"] == "docling"
+    assert "duration_ms" in json_response["metadata"]
+    assert isinstance(json_response["metadata"]["duration_ms"], float)
     
     # Verify parser was called correctly (start_page + 1)
     mock_parser_instance.parse.assert_called_once()

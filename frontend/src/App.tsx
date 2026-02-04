@@ -29,11 +29,10 @@ function App() {
         const startTime = Date.now();
         try {
             const data = await api.uploadPdf(file, parserId);
-            const durationMs = Date.now() - startTime;
             updateResult(parserId, { 
                 status: 'success', 
                 data, 
-                durationMs 
+                durationMs: data.metadata.duration_ms
             });
         } catch (err: any) {
             const durationMs = Date.now() - startTime;

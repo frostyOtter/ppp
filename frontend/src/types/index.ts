@@ -4,6 +4,7 @@ export interface ParseMetadata {
   parser: string;
   pages_processed: number;
   filename: string;
+  duration_ms: number;
 }
 
 export interface ParseResponse {
