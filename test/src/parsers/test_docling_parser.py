@@ -43,9 +43,9 @@ def test_docling_parser_success(mocker):
     assert "Test Author" in result
     assert "Page 1 content" in result
     
-    # Verify arguments. Note parser uses start_page-1 for 0-based index
-    # parse arg: start_page=1, max_pages=5 -> range(0, 5)
+    # Verify arguments. Note parser now uses page_range (1-based, inclusive)
+    # parse arg: start_page=1, max_pages=5 -> page_range=(1, 5)
     mock_converter_instance.convert.assert_called_once()
     args, kwargs = mock_converter_instance.convert.call_args
     assert args[0] == "dummy.pdf"
-    assert kwargs["page_numbers"] == [0, 1, 2, 3, 4]
+    assert kwargs["page_range"] == (1, 5)
