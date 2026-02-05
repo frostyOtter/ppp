@@ -67,9 +67,7 @@ class DoclingParser(PDFParser):
             try:
                 conv_res = doc_converter.convert(
                     file_path,
-                    page_numbers=list(
-                        range(start_page - 1, start_page - 1 + max_pages)
-                    ),
+                    page_range=(start_page, start_page + max_pages - 1),
                 )
                 logger.info("Document conversion successful")
             except Exception as e:
